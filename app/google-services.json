@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605578827283",
+    "project_id": "apprizzler",
+    "storage_bucket": "apprizzler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605578827283:android:510bfa8650253ebec291e6",
+        "android_client_info": {
+          "package_name": "com.projectmap.rizzler"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF40NKWG1kOO2_4fguhodAk72Jp36leBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
