@@ -354,5 +354,347 @@ class AddFragment : BottomSheetDialogFragment() {
     }
 }
 ```
+# MyPostFragment
+```
+class MyPostFragment : Fragment() {
+    private lateinit var binding: FragmentMyPostBinding
 
-kayaknya saya nyerah dikit ngasi explanation karena panjang bgt, more explanation ada di presentasi yaa
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentMyPostBinding.inflate(inflater, container, false)
+        // Inisialisasi postList dan adapter
+        var postList = ArrayList<Post>()
+        var adapter = MyPostRvAdapter(requireContext(), postList)
+
+        // Setel layout manager dan adapter untuk RecyclerView
+        binding.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.rv.adapter = adapter
+
+        // Ambil data post khusus pengguna dari Firestore
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
+            // List sementara untuk menyimpan post yang diambil
+            var tempList = arrayListOf<Post>()
+
+            // Loop melalui dokumen Firestore
+            for (i in it.documents) {
+                // Konversi dokumen Firestore ke objek Post
+                var post: Post = i.toObject<Post>()!!
+                // Tambahkan post ke list sementara
+                tempList.add(post)
+            }
+
+            // Tambahkan semua post dari list sementara ke dalam postList utama
+            postList.addAll(tempList)
+            // Beri tahu adapter tentang perubahan data
+            adapter.notifyDataSetChanged()
+        }
+
+        return binding.root
+    }
+
+    companion object {
+    }
+}
+```
+- Import Library dan Package: Mendeklarasikan impor paket dan library yang digunakan.
+- Deklarasi Variabel: Mendeklarasikan variabel binding yang digunakan untuk menghubungkan dengan layout binding dan postList serta adapter untuk menampilkan data post.
+- onCreate: Override metode onCreate yang dipanggil ketika fragment dibuat.
+- onCreateView: Override metode onCreateView yang dipanggil untuk membuat tampilan fragment.
+- Inflate Layout: Menggunakan binding untuk menghubungkan dengan layout fragment FragmentMyPostBinding.
+- Inisialisasi Variabel: Menginisialisasi postList dan adapter.
+- Set RecyclerView Layout Manager dan Adapter: Mengatur layout manager dan adapter untuk RecyclerView.
+- Ambil Data dari Firestore: Mengambil data post khusus pengguna dari Firestore menggunakan Firebase Firestore API.
+- Loop Melalui Dokumen Firestore: Melakukan loop melalui dokumen Firestore untuk mendapatkan data post.
+- Konversi Firestore ke Objek Post: Mengkonversi data Firestore menjadi objek Post.
+- Tambahkan ke List Sementara: Menambahkan objek Post ke dalam list sementara (tempList).
+- Tambahkan ke PostList Utama: Menambahkan semua post dari list sementara ke dalam postList utama.
+- Beritahu Adapter tentang Perubahan Data: Menggunakan adapter.notifyDataSetChanged() untuk memberi tahu adapter tentang perubahan data.
+- Return Root View: Mengembalikan root view yang telah di-inflate.
+- Companion Object: Bagian yang mendeklarasikan companion object, tetapi dalam contoh ini tidak diisi dengan implementasi tambahan.
+
+# MyReelsFragment
+```
+class MyReelsFragment : Fragment() {
+    private lateinit var binding: FragmentMyReelsBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentMyReelsBinding.inflate(inflater, container, false)
+        
+        // Inisialisasi reelList dan adapter
+        var reelList = ArrayList<Reel>()
+        var adapter = MyReelAdapter(requireContext(), reelList)
+        
+        // Setel layout manager dan adapter untuk RecyclerView
+        binding.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.rv.adapter = adapter
+
+        // Ambil data reel khusus pengguna dari Firestore
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + REEL).get().addOnSuccessListener {
+            // List sementara untuk menyimpan reel yang diambil
+            var tempList = arrayListOf<Reel>()
+
+            // Loop melalui dokumen Firestore
+            for (i in it.documents) {
+                // Konversi dokumen Firestore ke objek Reel
+                var reel: Reel = i.toObject<Reel>()!!
+                // Tambahkan reel ke list sementara
+                tempList.add(reel)
+            }
+
+            // Tambahkan semua reel dari list sementara ke dalam reelList utama
+            reelList.addAll(tempList)
+            // Beri tahu adapter tentang perubahan data
+            adapter.notifyDataSetChanged()
+        }
+
+        return binding.root
+    }
+
+    companion object {
+    }
+}
+```
+- Import Library dan Package: Mendeklarasikan impor paket dan library yang digunakan.
+- Deklarasi Variabel: Mendeklarasikan variabel binding yang digunakan untuk menghubungkan dengan layout binding dan reelList serta adapter untuk menampilkan data reel.
+- onCreate: Override metode onCreate yang dipanggil ketika fragment dibuat.
+- onCreateView: Override metode onCreateView yang dipanggil untuk membuat tampilan fragment.
+- Inflate Layout: Menggunakan binding untuk menghubungkan dengan layout fragment FragmentMyReelsBinding.
+- Inisialisasi Variabel: Menginisialisasi reelList dan adapter.
+- Set RecyclerView Layout Manager dan Adapter: Mengatur layout manager dan adapter untuk RecyclerView.
+- Ambil Data dari Firestore: Mengambil data reel khusus pengguna dari Firestore menggunakan Firebase Firestore API.
+- Loop Melalui Dokumen Firestore: Melakukan loop melalui dokumen Firestore untuk mendapatkan data reel.
+- Konversi Firestore ke Objek Reel: Mengkonversi data Firestore menjadi objek Reel.
+- Tambahkan ke List Sementara: Menambahkan objek Reel ke dalam list sementara (tempList).
+- Tambahkan ke ReelList Utama: Menambahkan semua reel dari list sementara ke dalam reelList utama.
+- Beritahu Adapter tentang Perubahan Data: Menggunakan adapter.notifyDataSetChanged() untuk memberi tahu adapter tentang perubahan data.
+- Return Root View: Mengembalikan root view yang telah di-inflate.
+- Companion Object: Bagian yang mendeklarasikan companion object, tetapi dalam contoh ini tidak diisi dengan implementasi tambahan.
+
+# ProfileFragment
+```
+class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentProfileBinding
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        // Set up click listener for edit profile button
+        binding.editProfile.setOnClickListener {
+            val intent = Intent(activity, AccountSettings::class.java)
+            intent.putExtra("MODE", 1)
+            activity?.startActivity(intent)
+            activity?.finish()
+        }
+
+        // Set up ViewPagerAdapter for handling fragment navigation
+        viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
+        viewPagerAdapter.addFragments(MyPostFragment(), "My Post")
+        viewPagerAdapter.addFragments(MyReelsFragment(), "My Reels")
+        binding.viewPager.adapter = viewPagerAdapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+        return binding.root
+    }
+
+    companion object {
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Load user data from Firestore when the fragment starts
+        Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
+            .addOnSuccessListener {
+                // Convert Firestore document to User object
+                val user: User = it.toObject<User>()!!
+
+                // Set user data to the corresponding views in the layout
+                binding.name.text = user.name
+                binding.bio.text = user.email
+
+                // Load user image using Picasso library if available
+                if (!user.image.isNullOrEmpty()) {
+                    Picasso.get().load(user.image).into(binding.profileImage)
+                }
+            }
+    }
+}
+```
+- Deklarasi Variabel: Mendeklarasikan variabel binding yang digunakan untuk menghubungkan dengan layout binding dan viewPagerAdapter untuk menangani navigasi antar fragment.
+- onCreate: Override metode onCreate yang dipanggil ketika fragment dibuat.
+- onCreateView: Override metode onCreateView yang dipanggil untuk membuat tampilan fragment.
+- Inflate Layout: Menggunakan binding untuk menghubungkan dengan layout fragment FragmentProfileBinding.
+- Set Click Listener for Edit Profile Button: Menambahkan click listener untuk tombol edit profile untuk membuka halaman pengaturan akun.
+- Set Up ViewPagerAdapter: Menginisialisasi dan menyiapkan ViewPagerAdapter untuk menangani navigasi antar fragment.
+- Return Root View: Mengembalikan root view yang telah di-inflate.
+- onStart: Override metode onStart yang dipanggil ketika fragment mulai aktif.
+- Load User Data from Firestore: Mengambil data pengguna dari Firestore saat fragment mulai aktif.
+- Convert Firestore to User Object: Mengkonversi dokumen Firestore menjadi objek User.
+- Set User Data to Views: Mengatur data pengguna ke tampilan yang sesuai dalam layout.
+- Load User Image Using Picasso: Menggunakan library Picasso untuk memuat gambar pengguna jika tersedia.
+
+# ReelFragment
+```
+class ReelFragment : Fragment() {
+    private lateinit var binding: FragmentReelBinding
+    lateinit var adapter: ReelAdapter
+    var reelList = ArrayList<Reel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Menghubungkan dengan layout FragmentReelBinding
+        binding = FragmentReelBinding.inflate(inflater, container, false)
+        
+        // Inisialisasi adapter ReelAdapter dan mengaturnya ke ViewPager
+        adapter = ReelAdapter(requireContext(), reelList)
+        binding.viewPager.adapter = adapter
+
+        // Mengambil data reel dari Firestore
+        Firebase.firestore.collection(REEL).get().addOnSuccessListener {
+            var tempList = ArrayList<Reel>()
+            reelList.clear()
+
+            // Mengkonversi dokumen Firestore menjadi objek Reel
+            for (i in it.documents) {
+                var reel = i.toObject<Reel>()!!
+                tempList.add(reel)
+            }
+
+            // Membalik urutan list untuk menampilkan reel terbaru terlebih dahulu
+            reelList.addAll(tempList.reversed())
+            
+            // Memberi tahu adapter bahwa data telah berubah dan perlu di-refresh
+            adapter.notifyDataSetChanged()
+        }
+
+        return binding.root
+    }
+
+    companion object {
+    }
+}
+```
+- Deklarasi Variabel: Mendeklarasikan variabel binding yang digunakan untuk menghubungkan dengan layout binding, adapter untuk adapter Reel, dan reelList sebagai ArrayList yang berisi objek Reel.
+- onCreate: Override metode onCreate yang dipanggil ketika fragment dibuat.
+- onCreateView: Override metode onCreateView yang dipanggil untuk membuat tampilan fragment.
+- Inflate Layout: Menggunakan binding untuk menghubungkan dengan layout fragment FragmentReelBinding.
+- Inisialisasi Adapter: Menginisialisasi adapter ReelAdapter dan mengaturnya ke ViewPager.
+- Fetch Reel Data from Firestore: Mengambil data reel dari Firestore menggunakan Firebase Firestore.
+- Convert Firestore Documents to Reel Objects: Mengkonversi dokumen Firestore menjadi objek Reel.
+- Reverse the List: Membalik urutan list untuk menampilkan reel terbaru terlebih dahulu.
+- Notify Adapter Changes: Memberi tahu adapter bahwa data telah berubah dan perlu di-refresh.
+
+# SearchFragment
+```
+class SearchFragment : Fragment() {
+    lateinit var binding: FragmentSearchBinding
+    lateinit var adapter: SearchAdapter
+    var userList = ArrayList<User>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Menghubungkan dengan layout FragmentSearchBinding
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        
+        // Mengatur layout manager dan adapter untuk RecyclerView
+        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+        adapter = SearchAdapter(requireContext(), userList)
+        binding.rv.adapter = adapter
+
+        // Mengambil data pengguna dari Firestore
+        Firebase.firestore.collection(USER_NODE).get().addOnSuccessListener {
+
+            var tempList = ArrayList<User>()
+            userList.clear()
+            
+            // Mengisi list pengguna dengan data dari Firestore
+            for (i in it.documents) {
+                // Memeriksa apakah pengguna adalah pengguna saat ini
+                if (i.id != Firebase.auth.currentUser?.uid) {
+                    var user: User = i.toObject<User>()!!
+                    tempList.add(user)
+                }
+            }
+
+            // Menambahkan data ke userList dan memberitahu adapter bahwa data telah berubah
+            userList.addAll(tempList)
+            adapter.notifyDataSetChanged()
+        }
+
+        // Menambahkan listener untuk tombol pencarian
+        binding.searchButton.setOnClickListener {
+            var text = binding.searchView.text.toString()
+
+            // Mencari pengguna berdasarkan nama di Firestore
+            Firebase.firestore.collection(USER_NODE).whereEqualTo("name", text).get()
+                .addOnSuccessListener {
+
+                    var tempList = ArrayList<User>()
+                    userList.clear()
+
+                    // Mengisi list pengguna dengan hasil pencarian
+                    for (i in it.documents) {
+                        // Memeriksa apakah pengguna adalah pengguna saat ini
+                        if (i.id != Firebase.auth.currentUser?.uid) {
+                            var user: User = i.toObject<User>()!!
+                            tempList.add(user)
+                        }
+                    }
+
+                    // Menambahkan data ke userList dan memberitahu adapter bahwa data telah berubah
+                    userList.addAll(tempList)
+                    adapter.notifyDataSetChanged()
+                }
+        }
+
+        return binding.root
+    }
+
+    companion object {
+    }
+}
+```
+- Deklarasi Variabel: Mendeklarasikan variabel binding yang digunakan untuk menghubungkan dengan layout binding, adapter untuk adapter SearchAdapter, dan userList sebagai ArrayList yang berisi objek User.
+- onCreate: Override metode onCreate yang dipanggil ketika fragment dibuat.
+- onCreateView: Override metode onCreateView yang dipanggil untuk membuat tampilan fragment.
+- Inflate Layout: Menggunakan binding untuk menghubungkan dengan layout fragment FragmentSearchBinding.
+- Inisialisasi RecyclerView: Mengatur layout manager dan adapter untuk RecyclerView.
+- Fetch User Data from Firestore: Mengambil data pengguna dari Firestore.
+- Search Button Listener: Menambahkan listener untuk tombol pencarian.
+- Search Users in Firestore: Mencari pengguna berdasarkan nama di Firestore dan mengupdate tampilan dengan hasil pencarian.
