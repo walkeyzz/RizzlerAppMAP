@@ -58,7 +58,7 @@ Nah ini kalau button edit profile di klik, tampilan nya seperti inii, eits tapi 
 
 ![WhatsApp Image 2024-01-04 at 19 49 17_42d2423d](https://github.com/walkeyzz/RizzlerAppMAP/assets/146419451/83e751e7-9397-45f5-8977-1c3d5b68f640)
 
-Sekian preview aplikasi kami, semoga good enough sesuai dengan standar pak Hudya.. Mohon maaf kalau masih banyak kekurangan karena kami juga masih tahap belajar. And shout out juga untuk chatgpt, mamang india, dan banyak nya tutor yt yang sudah ditonton agar aplikasi ini bisa berjalan:) Terima Kasih Banyak^^
+Sekian preview aplikasi kami, semoga good enough sesuai dengan standar pak Hudya.. Mohon maaf kalau masih banyak kekurangan karena kami juga masih tahap belajar. And shout out juga untuk chatgpt, tutor pembelajaran pak Hudya, mamang india, dan banyak nya tutor yt yang sudah ditonton agar aplikasi ini bisa berjalan:) Terima Kasih Banyak^^
 
 
 
